@@ -14,9 +14,11 @@
                     2,
                     3
                 ],
-                "other": [
-                    "some weird items"
-                ],
+                "other": {
+                    "hostname": "test",
+                    "ip address": "127.0.0.1",
+                    "others": "other"
+                },
                 "windows_size": [
                     [
                         123,

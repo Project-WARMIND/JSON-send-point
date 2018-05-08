@@ -10,7 +10,7 @@ OS_DETECTION = {
     "detected OS": "Windows 7",
     "open_ports": [1, 2, 3],
     "windows_size": [[123,123], [123,123]],
-    "other": ["some weird items"]
+    "other": {"hostname": "test", "ip address": "127.0.0.1", "others": "other"}
 }
 EXPECTED_SUCCESSFUL_OUTPUT = """{
   "exploit status": {
