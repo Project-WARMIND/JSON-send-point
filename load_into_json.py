@@ -14,6 +14,8 @@ import string
 import random
 import shutil
 
+import requests
+
 from test_dicts import (
     OS_DETECTION,
     SUCCESSFUL_EXPLOIT,
@@ -75,7 +77,7 @@ def merge_json_data(filenames, dest_dir):
 
 def send_to_api(url, data):
     # have to wait for a way to access the API first
-    pass
+    req = requests
 
 
 def main(exploit_status, os_detection, test=False):
