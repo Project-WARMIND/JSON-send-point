@@ -1,7 +1,18 @@
+"""
+This file is apart of project WARMIND (https://github.com/Project-WARMIND)
+it will be used in conjunction with the project and is licensed under GPUv3.
+
+You can see the license here https://github.com/Project-WARMIND/AISploit-Whitepaper/blob/master/LICENSE
+
+This file will be used as a send point between the API, OS detection, and exploit statuses
+"""
+
 import os
+import sys
 import json
 import string
 import random
+import shutil
 
 from test_dicts import (
     OS_DETECTION,
@@ -12,25 +23,22 @@ from test_dicts import (
 )
 
 
-JSON_DATA_FILE_PATH = "{}/etc".format(os.getcwd())
+# the path that will be used to store the temporary JSON data
+JSON_DATA_FILE_PATH = "{}/.tmp".format(os.getcwd())
 
 
-def clean_files(files, main_dir):
-    try:
-        for f in files:
-            os.remove(f)
-        os.remove(main_dir)
-        return True
-    except Exception:
-        return False
-
-
-def send_to_api():
-    # have to wait for a way to access the API first
-    pass
+def clean_files(path):
+    """
+    clean a tree of folders, mimics the `rm -rf` command
+    """
+    return shutil.rmtree(path)
 
 
 def random_filename(filepath, length=7):
+    """
+    create a random filename, this shouldn't cause any problems because
+    they files will be deleted after used
+    """
     retval = []
     acceptable = string.ascii_letters
     for _ in range(length):
@@ -39,6 +47,9 @@ def random_filename(filepath, length=7):
 
 
 def jsonize(data, filepath, key):
+    """
+    jsonize data by pulling a dict and adding it to a temp JSON file
+    """
     if not os.path.exists(filepath):
         os.mkdir(filepath)
     json_filename = random_filename(filepath)
@@ -49,6 +60,9 @@ def jsonize(data, filepath, key):
 
 
 def merge_json_data(filenames, dest_dir):
+    """
+    merge multiple JSON files into a single file
+    """
     out_filename = random_filename(dest_dir)
     results = []
     for f in filenames:
@@ -59,8 +73,33 @@ def merge_json_data(filenames, dest_dir):
     return out_filename
 
 
-files = [
-    jsonize(OS_DETECTION, JSON_DATA_FILE_PATH, "detected system"),
-    jsonize(SUCCESSFUL_EXPLOIT, JSON_DATA_FILE_PATH, "exploit status")
-]
-out_file = merge_json_data(files, JSON_DATA_FILE_PATH)
+def send_to_api(url, data):
+    # have to wait for a way to access the API first
+    pass
+
+
+def main(exploit_status, os_detection, test=False):
+    """
+    main function
+    """
+    files_to_merge = []
+    keys = {"exploit status": exploit_status, "detected system": os_detection}
+    for key in keys.keys():
+        files_to_merge.append(jsonize(keys[key], JSON_DATA_FILE_PATH, key))
+    # merge all the files into a singular file
+    out_file = merge_json_data(files_to_merge, JSON_DATA_FILE_PATH)
+    with open(out_file, 'rb') as _data:
+        # this is the data we will send to the API in a POST?
+        send_data = json.loads(_data.read())
+    # cleans the temp JSON files so they don't exist anymore
+    clean_files(JSON_DATA_FILE_PATH)
+    if test:
+        print(send_data)
+    send_to_api("", send_data)
+
+
+if __name__ == "__main__":
+    # to see the test data you will need to add `test` into the argv
+    # python2/3 load_into_json.py test it will then print out the send data
+    if "test" in sys.argv:
+        main(SUCCESSFUL_EXPLOIT, OS_DETECTION, test=True)
