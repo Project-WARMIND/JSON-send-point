@@ -85,7 +85,7 @@ def main(exploit_status, os_detection, test=False):
     main function
     """
     files_to_merge = []
-    keys = {"exploit status": exploit_status, "detected system": os_detection}
+    keys = {"exploit_status": exploit_status, "detected_system": os_detection}
     for key in keys.keys():
         files_to_merge.append(jsonize(keys[key], JSON_DATA_FILE_PATH, key))
     # merge all the files into a singular file
