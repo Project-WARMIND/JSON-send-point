@@ -1,31 +1,33 @@
-[
-    {
-        "detected system": {
-            "detected OS": "Windows 7",
-            "open_ports": [
-                1,
-                2,
-                3
-            ],
-            "other": [
-                "some weird items"
-            ],
-            "windows_size": [
-                [
-                    123,
-                    123
+{
+    "results": [
+        {
+            "exploit status": {
+                "exploit": "CVE-NAME",
+                "successful": true
+            }
+        },
+        {
+            "detected system": {
+                "detected OS": "Windows 7",
+                "open_ports": [
+                    1,
+                    2,
+                    3
                 ],
-                [
-                    123,
-                    123
+                "other": [
+                    "some weird items"
+                ],
+                "windows_size": [
+                    [
+                        123,
+                        123
+                    ],
+                    [
+                        123,
+                        123
+                    ]
                 ]
-            ]
+            }
         }
-    },
-    {
-        "exploit status": {
-            "exploit": "CVE-NAME",
-            "successful": true
-        }
-    }
-]
+    ]
+}

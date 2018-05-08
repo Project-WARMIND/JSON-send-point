@@ -64,10 +64,10 @@ def merge_json_data(filenames, dest_dir):
     merge multiple JSON files into a single file
     """
     out_filename = random_filename(dest_dir)
-    results = []
+    results = {"results": []}
     for f in filenames:
         with open(f, "rb") as data:
-            results.append(json.load(data))
+            results["results"].append(json.load(data))
     with open(out_filename, "a+") as merged:
         merged.write(json.dumps(results, sort_keys=True, indent=4))
     return out_filename
