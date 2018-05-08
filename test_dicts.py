@@ -8,9 +8,9 @@ UNSUCCCESSFUL_EXPLOIT = {
 }
 OS_DETECTION = {
     "detected OS": "Windows 7",
-    "open_ports": [1, 2, 3],
-    "windows_size": [[123,123], [123,123]],
-    "other": {"hostname": "test", "ip address": "127.0.0.1", "others": "other"}
+    "open ports": [1, 2, 3],
+    "windows size": [[123,123], [123,123]],
+    "other": {"hostname": "test", "ip_address": "127.0.0.1", "others": "other"}
 }
 EXPECTED_SUCCESSFUL_OUTPUT = """{
   "exploit status": {
@@ -19,8 +19,8 @@ EXPECTED_SUCCESSFUL_OUTPUT = """{
   }, 
   {
     "detected system": {
-      "windows_size": [[123, 123], [123, 123]], 
-      "open_ports": [1, 2, 3], 
+      "windows size": [[123, 123], [123, 123]], 
+      "open ports": [1, 2, 3], 
       "other": ["some weird items"], 
       "detected OS": "Windows 7"
   }
@@ -32,8 +32,8 @@ EXPECTED_FAILED_OUTPUT = """{
   }, 
   {
     "detected system": {
-      "windows_size": [[123, 123], [123, 123]], 
-      "open_ports": [1, 2, 3], 
+      "windows size": [[123, 123], [123, 123]], 
+      "open ports": [1, 2, 3], 
       "other": ["some weird items"], 
       "detected OS": "Windows 7"
   }

@@ -36,6 +36,19 @@ def clean_files(path):
     return shutil.rmtree(path)
 
 
+def convert_to_underscore(dict_data):
+    """
+    convert spaces in the dict keys into underscores
+    """
+    retval = {}
+    for item in dict_data.keys():
+        if " " in item:
+            retval[str(item).replace(" ", "_")] = dict_data[item]
+        else:
+            retval[str(item)] = dict_data[item]
+    return retval
+
+
 def random_filename(filepath, length=7):
     """
     create a random filename, this shouldn't cause any problems because
@@ -85,7 +98,10 @@ def main(exploit_status, os_detection, test=False):
     main function
     """
     files_to_merge = []
-    keys = {"exploit status": exploit_status, "detected system": os_detection}
+    keys = {
+        "exploit_status": convert_to_underscore(exploit_status),
+        "detected_system": convert_to_underscore(os_detection)
+    }
     for key in keys.keys():
         files_to_merge.append(jsonize(keys[key], JSON_DATA_FILE_PATH, key))
     # merge all the files into a singular file
